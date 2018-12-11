@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Vue Router</title>
+  </head>
+  <body>
+    <div id = "app">
+      <!--
+      라우팅 : 웹 페이지 간의 이동 방법
+      뷰 라우터 : 뷰에서 라우팅 기능을 구현할 수 있도록 지원하는 공식 라이브러리
+                 뷰로 만든 페이지 간에 자유롭게 이동할 수 있음.
+      -->
+      <p>
+        <router-link to="/main">Main 컴포넌트로 이동</router-link>
+        <router-link to="/login">Login 컴포넌트로 이동</router-link>
+        <!-- URL 값을 변경하는 태그
+             [Main 컴포넌트로 이동], [Login 컴포넌트로 이동]이라는 <a> 버튼 태그로 변환되어 화면에 나타남
+             각 버튼을 클릭하면 to=""에 정의된 텍스트 값이 브라우저 URL 끝에 추가됨
+         -->
+      </p>
+
+      <router-view></router-view> <!-- URL 값에 따라 갱신되는 화면 영역  -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+
+    <script>
+      var Main = { template: '<div>main</div>' };
+      var Login = { template: '<div>login</div>' }; // Main, Login 컴포넌트 정의
+
+      var routes = [
+        { path: '/main', component: Main },
+        { path: '/login', component: Login } // 각 URL에 맞춰 표시할 컴포넌트 지정
+      ];
+
+      var router = new VueRouter({ // 뷰 라우터 정의
+        routes
+      });
+
+      var app = new Vue({ // 뷰 인스턴스에 라우터 추가
+        router
+      }).$mount('#app'); // .$mount API : el 속성과 같이 인스턴스를 화면에 붙여주는 역할
+    </script>
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Vue watch</title>
+  </head>
+  <body>
+
+<div id="app">
+  <input v-model="message">
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue'
+        },
+        watch: {
+          message: function(data) { // message(inout box)의 입력 값을 v-model 디렉티브로 연결하여 입력 값이 변화가 있을 때 마다  watch 속성에서 변화된 값을 로그로 출력 
+            console.log("message의 값이 변경됩니다. : ", data);
+          }
+        }
+      });
+    </script>
+
+  </body>
+</html>
+
+
+
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

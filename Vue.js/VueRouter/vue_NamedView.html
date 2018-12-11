@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Vue Named View</title>
+  </head>
+  <body>
+    <div id = "app"> <!-- 라우팅 영역 정의 -->
+      <!-- 네임드 뷰 : 특정 페이지로 이동했을 때 여러 개의 컴포넌트를 동시에 표시하는 라우팅 방식 -->
+      <router-view name="header"></router-view>
+      <router-view></router-view> <!-- name이 없는 경우는 default로 접근 -->
+      <router-view name="footer"></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+
+    <script>
+      var Body = {template: '<div>This is Body</div>'};
+      var Header = {template: '<div>This is Header</div>'};
+      var Footer = {template: '<div>This is Footer</div>'};
+
+      var router = new VueRouter({
+        routes: [
+          {
+            path: '/',
+            components: { //<router-view의 name 속성과 컴포넌트를 연결
+              default: Body,
+              header: Header,
+              footer: Footer
+            }
+          }
+        ]
+      });
+
+      var app = new Vue({
+        router
+      }).$mount('#app');
+    </script>
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

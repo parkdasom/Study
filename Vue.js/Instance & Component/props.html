@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Component props</title>
+  </head>
+  <body>
+    <div id = "app">
+      <child-component v-bind:propsdata="message"></child-component>
+                                <!--propsdata : props 속성 이름 / message : 상위 컴포넌트의 데이터 속성
+                                    상위 컴포넌트의 message 속성값(Hello Vue!~) 텍스트를 하위 컴포넌트의 propsdata로 전달 -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+
+    <script>
+      /*
+        props 속성 : 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 때 사용하는 속성
+        1. 하위 컴포넌트의 속성에 정의
+        Vue.component('child-component', {
+          props: ['props 속성 이름'],
+        });
+
+        2. 상위 컴포넌트에 v-bind 속성 추가
+        <child-component v-bind:props 속성 이름="상위 컴포넌트의 data 속성"></child-component>
+      */
+      Vue.component('child-component', { // 하위 컴포넌트인 child-component 등록
+        props: ['propsdata'], // props 속성으로 propsdata 정의
+        template: '<p>{{ propsdata }}</p>',
+      });
+
+      new Vue({ // 이 Vue 인스턴스 자체가 상위 컴포넌트가 된다.
+        el: '#app',
+        data: {
+          message: 'Hello Vue! passed from Parent Component'
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

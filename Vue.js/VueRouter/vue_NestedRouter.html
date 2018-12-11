@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Vue Nested Router</title>
+  </head>
+  <body>
+    <div id = "app">
+        <router-view></router-view> <!-- User 컴포넌트가 뿌려질 영역 -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+
+    <script>
+      var User = { // 컴포넌트 내용 정의
+          //하위 컴포넌트가 뿌려질 영역
+          template: `
+            <div>
+                User Component
+                <router-view></router-view>
+            </div>
+          `
+          /*
+             최상위 컴포넌트에 <router-view>가 있고 최상위 컴포넌트의 하위 컴포넌트(User)에도 <router-view>가 존재함.
+             그로 인해 URL에 따라 하위 컴포넌트의 내용이 변경됨.
+          */
+      };
+
+      var UserProfile = {template: '<p>User Profile Component</p>'};
+      var UserPost = {template: '<p>User Post Component</p>'};
+
+      var routes = [ // 네스티드 라우팅 정의
+          // 기본 파일 실행 시 빈화면 => URL 뒤에 아래 정의된 URL 입력
+          {
+              path: '/user', // 네스티드 라우터를 실행하는 기본 URL 설정
+              component: User,
+              children: [ // URL 값 /user 다음에 올 URL에 따라 표시될 하위 컴포넌트 정의
+                  {
+                    path: 'posts', // ex) vue_NestedRouter.html/user/posts
+                    component: UserPost
+                  },
+                  {
+                    path: 'profile', // ex) vue_NestedRouter.html/user/profile
+                    component: UserProfile
+                  }
+              ]
+          }
+      ];
+
+      var router = new VueRouter({ // 뷰 라우터 정의
+          routes
+      });
+
+      var app = new Vue({ // 뷰 인스턴스에 라우터 추가
+          router
+      }).$mount('#app');
+    </script>
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

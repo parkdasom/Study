@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Event Bus</title>
+  </head>
+  <body>
+    <div id = "app">
+      <child-component></child-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+
+    <script>
+    /*
+      이벤트버스(EventBus) : 개발자가 지정한 2개의 컴포넌트 간에 데이터를 주고받을 수 있는 방법
+      1. 이벤트 버스를 위한 추가 인스턴스 1개 생성
+      var eventBus = new Vue();
+
+      2. 이벤트를 보내는 컴포넌트
+      methods: {
+        메서드명: function() {
+          eventBus.$emit('이벤트명', 데이터); // .$emit() : 보내는 컴포넌트
+        }
+      }
+
+      3. 이벤트를 받는 컴포넌트
+      metohds: {
+        create: function() {
+          eventBus.$on('이벤트명', function(데이터) { // $.on() : 받는 컴포넌트
+          ...
+          });
+        }
+      }
+    */
+
+    var eventBus = new Vue();
+    Vue.component('child-component', {
+      template: '<div>하위 컨포넌트 영역 <button v-on:click="showLog">show</button></div>',
+      methods: {
+        showLog: function() {
+          eventBus.$emit('triggerEventBus', 100);
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+      created: function() {
+        eventBus.$on('triggerEventBus', function(value) {
+          console.log("이벤트를 전달받음. 전달받은 값 : ", value);
+        });
+      }
+    });
+
+    /*
+      [Show]버튼 클릭 -> showLog() 실행 -> eventBus의 이벤트 발생 -> 상위 컴포넌트의 created()에 있는 eventBus.$on()에서 전달받음 -> 전달된 인자 값 100 출력
+    */
+
+    </script>
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->

@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Vue Javascript</title>
+  </head>
+  <body>
+
+<div id="app">
+  <p>{{ message }}</p>
+  <p>{{ message + "!" }}</p>
+  <p>{{ message.split('').reverse().join('') }}</p> <!--복잡한 연산은 인스턴스 안에서 수행 -->
+  {{ reversedMessage }}
+
+  <!--
+    {{ var a = 10; }} 선언문 사용 불가
+    {{ if() {} }} 분기 구문 사용 불가
+    {{ true ? 10 : 0}} 삼항연산자 표현 가능
+
+  -->
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue.js!'
+        },
+        computed: { // 데이터 속성을 자동으로 계산해 주는 속성
+          reversedMessage : function() { // {{ reversedMessage }}에 표현되기 전에 연산 수행
+            return this.message.split('').reverse().join(''); //this.message =  message: 'Hello Vue.js!'
+          }
+        }
+      });
+    </script>
+
+  </body>
+</html>
+
+<!-- *** 출처 : Do It! Vue.js 입문 : 예제로 이해하고 실전 프로젝트로 완성한다! *** -->
